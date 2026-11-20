@@ -8,39 +8,88 @@
   <title>Nukaazo — Investor Story</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="assets/mark-icon.png" type="image/png">
 </head>
 <body>
   <div class="app">
+    <!-- Top Progress Bar -->
+    <div class="deck-progress" id="deck-progress" role="progressbar" aria-label="Deck progress" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100">
+      <div class="deck-progress-bar" id="deck-progress-bar"></div>
+    </div>
+
+    <!-- Header Chrome -->
     <header class="chrome">
-      <a class="brand" href="#slide-1" aria-label="Nukaazo home">
-        <span class="logo logo-sm" aria-hidden="true">
-          <img class="logo-mark" src="assets/mark-icon.png" alt="">
-          <span class="logo-word"><span class="logo-nukaa">nukaa</span><span class="logo-zo">zo</span></span>
-        </span>
-        <span class="sr">nukaazo</span>
-      </a>
+      <div class="chrome-brand-wrap">
+        <a class="brand" href="#slide-1" aria-label="Nukaazo home">
+          <span class="logo logo-sm" aria-hidden="true">
+            <img class="logo-mark" src="assets/mark-icon.png" alt="">
+            <span class="logo-word"><span class="logo-nukaa">nukaa</span><span class="logo-zo">zo</span></span>
+          </span>
+          <span class="sr">nukaazo</span>
+        </a>
+        <span class="badge-stage">INVESTOR DECK</span>
+      </div>
+
+      <div class="chrome-center">
+        <div class="breadcrumb-pill" id="breadcrumb-pill">
+          <span class="crumb-chapter" id="crumb-chapter">Overview</span>
+          <span class="crumb-divider">/</span>
+          <span class="crumb-title" id="crumb-title">Why we're here</span>
+        </div>
+      </div>
+
       <div class="chrome-side">
-        <span class="meta">Investor story · Pune · Nov 2026</span>
-        <a class="site-link" href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">nukaazo.com</a>
-        <button class="plain" id="overview-btn" type="button" aria-expanded="false" aria-controls="overview">Overview</button>
-        <button class="plain" id="print" type="button">Print / PDF</button>
+        <button class="chrome-btn" id="shortcuts-btn" type="button" title="Keyboard shortcuts (?)">
+          <kbd>?</kbd>
+          <span class="btn-text">Keys</span>
+        </button>
+        <button class="chrome-btn" id="fullscreen-btn" type="button" title="Toggle Fullscreen (F)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+          <span class="btn-text">Expand</span>
+        </button>
+        <button class="chrome-btn" id="overview-btn" type="button" aria-expanded="false" aria-controls="overview" title="Slide Index (O)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          <span class="btn-text">Index</span>
+        </button>
+        <button class="chrome-btn" id="print" type="button" title="Print or save as PDF">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8" rx="1"/>
+          </svg>
+          <span class="btn-text">PDF</span>
+        </button>
+        <a class="site-link" href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">
+          <span>nukaazo.com</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+          </svg>
+        </a>
       </div>
     </header>
 
     <main class="stage" aria-label="Nukaazo investor slideshow">
 
-      <!-- 1. Hook -->
-      <section class="slide theme-light is-active" data-title="Why we're here" id="slide-1">
+      <!-- 1. Hook / Hero -->
+      <section class="slide theme-light is-active" data-title="Why we're here" data-chapter="Hook" id="slide-1">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">Investor story</p>
+          <div class="pitch-badge reveal">
+            <span class="pulse-dot"></span>
+            <span>Seed / Pre-Series A · Pune, India · Nov 2026</span>
+          </div>
           <div class="hero-brand reveal" aria-hidden="true">
             <span class="logo logo-lg">
               <img class="logo-mark" src="assets/mark-icon.png" alt="">
@@ -51,543 +100,1001 @@
             Technology for the shop.<br><em>Customers for the counter.</em>
           </h1>
           <p class="lead reveal">Nukaazo doesn’t only digitise local shops — it helps them sell online, manage stock, and pull neighbourhood customers back to their door, on their terms.</p>
+          
+          <div class="hero-kpi-row reveal">
+            <div class="hero-kpi-card">
+              <span class="hero-kpi-val">10+</span>
+              <span class="hero-kpi-lbl">Pilot shops live</span>
+              <span class="hero-kpi-sub">Pune East cluster</span>
+            </div>
+            <div class="hero-kpi-card">
+              <span class="hero-kpi-val">₹25k</span>
+              <span class="hero-kpi-lbl">Daily GMV run-rate</span>
+              <span class="hero-kpi-sub">Organic neighborhood orders</span>
+            </div>
+            <div class="hero-kpi-card">
+              <span class="hero-kpi-val">4%</span>
+              <span class="hero-kpi-lbl">Sales commission</span>
+              <span class="hero-kpi-sub">Day-1 commerce revenue</span>
+            </div>
+          </div>
+
           <nav class="story-map reveal" aria-label="Story chapters">
-            <button type="button" data-jump="2" data-chapter="problem"><span>01</span> Problem</button>
-            <button type="button" data-jump="3" data-chapter="product"><span>02</span> Product</button>
-            <button type="button" data-jump="5" data-chapter="proof"><span>03</span> Proof</button>
-            <button type="button" data-jump="7" data-chapter="plan"><span>04</span> Plan</button>
-            <button type="button" data-jump="9" data-chapter="ask"><span>05</span> Ask</button>
+            <button type="button" data-jump="2" data-chapter="problem"><span class="chapter-num">01</span> Problem</button>
+            <button type="button" data-jump="3" data-chapter="product"><span class="chapter-num">02</span> Product</button>
+            <button type="button" data-jump="5" data-chapter="proof"><span class="chapter-num">03</span> Proof</button>
+            <button type="button" data-jump="7" data-chapter="plan"><span class="chapter-num">04</span> Plan</button>
+            <button type="button" data-jump="9" data-chapter="ask"><span class="chapter-num">05</span> The Ask</button>
           </nav>
-          <p class="hint reveal">Click a chapter · press <kbd>O</kbd> for overview · arrows to move</p>
-          <p class="site-cta reveal">Explore the product → <a href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">www.nukaazo.com</a></p>
+          
+          <div class="hero-footer-hints reveal">
+            <span class="hint">Press <kbd>→</kbd> or <kbd>Space</kbd> to begin · press <kbd>O</kbd> for index</span>
+            <span class="site-cta">Explore live product → <a href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">www.nukaazo.com</a></span>
+          </div>
         </div>
       </section>
 
       <!-- 2. Problem -->
-      <section class="slide theme-light" data-title="The problem" id="slide-2">
+      <section class="slide theme-light" data-title="The problem" data-chapter="Problem" id="slide-2">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">01 / Problem</p>
+          <p class="kicker reveal"><span class="kicker-tag">01</span> The Problem</p>
           <h2 class="display reveal">Local shops already have customers.<br><em>They lack the tools.</em></h2>
-          <p class="lead reveal">Ordering, delivery, stock, and retention still live in notebooks, WhatsApp, and memory. That makes growth hard and daily work messy.</p>
+          <p class="lead reveal">Ordering, delivery, stock, and retention still live in notebooks, WhatsApp chats, and memory. That makes growth hard and daily work messy.</p>
+          
           <div class="pain-row reveal">
             <article class="tile" tabindex="0">
+              <div class="tile-icon-wrap icon-orange">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+              </div>
+              <span class="tile-badge">Order Friction</span>
               <h3>Online orders</h3>
-              <p>No simple way to take and track neighbourhood orders end to end.</p>
+              <p>No simple, unified way to take, accept, and track neighbourhood orders without manual calls and lost messages.</p>
             </article>
+
             <article class="tile" tabindex="0">
+              <div class="tile-icon-wrap icon-teal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+              <span class="tile-badge">Inventory Blindness</span>
               <h3>Stock clarity</h3>
-              <p>What is available, low, or missing is rarely visible in one place.</p>
+              <p>What is available, low, or missing is rarely visible in one place. Stockouts lead directly to lost neighbourhood sales.</p>
             </article>
+
             <article class="tile" tabindex="0">
+              <div class="tile-icon-wrap icon-amber">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <span class="tile-badge">Customer Retention</span>
               <h3>Repeat buyers</h3>
-              <p>Known customers are hard to keep without a clear reorder loop.</p>
+              <p>Known customers are hard to keep without a digital reorder loop, losing ground to venture-subsidised quick commerce.</p>
             </article>
           </div>
         </div>
-        <p class="slidefoot reveal">This is the product thesis. Merchant interviews should confirm which jobs they will pay to solve first.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Core product thesis. Merchant interviews confirm ordering, stock visibility, and customer repeat as top paid priorities.</span>
+        </div>
       </section>
 
-      <!-- 3. Solution -->
-      <section class="slide theme-light" data-title="The product" id="slide-3">
+      <!-- 3. Solution / Product -->
+      <section class="slide theme-light" data-title="The product" data-chapter="Product" id="slide-3">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">02 / Product</p>
+          <p class="kicker reveal"><span class="kicker-tag">02</span> The Product</p>
           <h2 class="display reveal">Three apps.<br><em>One local business.</em></h2>
+          
           <div class="pillar-grid reveal">
-            <article>
-              <div class="pillar-num">Shopkeeper</div>
+            <article class="pillar-card">
+              <div class="pillar-header">
+                <span class="pillar-num">Merchant App</span>
+                <span class="pillar-role-pill">Shopkeeper</span>
+              </div>
               <h3>Run the shop</h3>
-              <p>Catalogue, prices, delivery range, fees, stock, and invited riders — controlled by the merchant.</p>
+              <p>Digital catalogue, live price edits, custom delivery range, delivery fee rules, stock alerts, and invited riders — completely merchant controlled.</p>
+              <ul class="pillar-features">
+                <li>Under 10-minute shop setup</li>
+                <li>Live inventory and low-stock alerts</li>
+                <li>Direct counter order acceptance</li>
+              </ul>
             </article>
-            <article>
-              <div class="pillar-num">Customer</div>
+
+            <article class="pillar-card pillar-accent">
+              <div class="pillar-header">
+                <span class="pillar-num">Customer App</span>
+                <span class="pillar-role-pill pill-orange">Shopper</span>
+              </div>
               <h3>Order nearby</h3>
-              <p>Find local products, see charges clearly, and reorder from shops they already trust.</p>
+              <p>Find nearby shops, see verified inventory and clear transparent charges, and reorder daily staples from neighbourhood shops they already trust.</p>
+              <ul class="pillar-features">
+                <li>Zero surge markups on store prices</li>
+                <li>Direct shop WhatsApp/chat connection</li>
+                <li>1-tap repeat grocery baskets</li>
+              </ul>
             </article>
-            <article>
-              <div class="pillar-num">Delivery</div>
+
+            <article class="pillar-card">
+              <div class="pillar-header">
+                <span class="pillar-num">Delivery App</span>
+                <span class="pillar-role-pill">Fulfilment</span>
+              </div>
               <h3>Finish the job</h3>
-              <p>Accept shop invitations, follow pickup steps, and confirm delivery.</p>
+              <p>Accept shop invitations, follow clear pickup and bag-check steps, and verify delivery with OTP for seamless counter-to-doorstep handoff.</p>
+              <ul class="pillar-features">
+                <li>Shop-designated rider invitations</li>
+                <li>Optimised local 1–3 km routes</li>
+                <li>Instant delivery completion proof</li>
+              </ul>
             </article>
           </div>
         </div>
-        <p class="slidefoot reveal">Intended platform shape. Production features should be inspected before investor diligence.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Intended platform architecture. Production code, APIs, and seller apps can be inspected during investor technical diligence.</span>
+        </div>
       </section>
 
-      <!-- 4. Experience -->
-      <section class="slide theme-light" data-title="How it feels" id="slide-4">
+      <!-- 4. Experience / How it feels -->
+      <section class="slide theme-light" data-title="How it feels" data-chapter="Product" id="slide-4">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
           <div class="split">
-            <div>
-              <p class="kicker reveal">02 / Product · Experience</p>
+            <div class="split-copy">
+              <p class="kicker reveal"><span class="kicker-tag">02</span> Product Experience</p>
               <h2 class="display reveal">One screen.<br><em>One next action.</em></h2>
-              <p class="lead reveal">The merchant sees the next order, stock needs, and delivery settings — without learning a complex back office.</p>
-            </div>
-            <div class="reveal">
-              <div class="phone" id="demo-phone" aria-label="Interactive shopkeeper app concept">
-                <div class="phone-top">
-                  <span class="logo logo-xs" aria-hidden="true">
-                    <img class="logo-mark" src="assets/mark-icon.png" alt="">
-                    <span class="logo-word"><span class="logo-nukaa">nukaa</span><span class="logo-zo">zo</span></span>
-                  </span>
-                  <span class="phone-cap">Your shop</span>
+              <p class="lead reveal">The merchant sees incoming orders, immediate stock needs, and delivery rider status at a single glance — without needing to learn a complex enterprise back office.</p>
+              
+              <div class="experience-perks reveal">
+                <div class="perk-row">
+                  <span class="perk-check">✓</span>
+                  <div>
+                    <b>Zero learning curve</b>
+                    <span>Designed for quick 1-tap responses during peak morning and evening store hours.</span>
+                  </div>
                 </div>
-                <h3 id="phone-greet">Good morning, Asha.</h3>
-                <div class="phone-row" id="phone-order"><b>New order #1042</b><span>₹540</span></div>
-                <div class="phone-row"><b>Delivery</b><span>3 km · ₹30 fee</span></div>
-                <div class="phone-row"><b>Stock alert</b><span>3 items low</span></div>
-                <button class="phone-cta" id="phone-cta" type="button">Accept this order</button>
-                <p class="phone-status" id="phone-status" hidden>Order accepted · rider notified</p>
+                <div class="perk-row">
+                  <span class="perk-check">✓</span>
+                  <div>
+                    <b>Direct rider coordination</b>
+                    <span>Accepting an order instantly notifies trusted neighbourhood delivery partners.</span>
+                  </div>
+                </div>
               </div>
-              <p class="screen-note">Try the button. Concept screen — values and names are fictional.</p>
+            </div>
+
+            <div class="reveal">
+              <div class="phone-wrapper">
+                <div class="phone" id="demo-phone" aria-label="Interactive shopkeeper app concept">
+                  <!-- Phone Status Header -->
+                  <div class="phone-notch"><span class="phone-cam"></span></div>
+                  <div class="phone-status-bar">
+                    <span class="phone-time">9:41</span>
+                    <span class="phone-icons">
+                      <svg width="12" height="10" viewBox="0 0 12 10" fill="currentColor" aria-hidden="true"><path d="M1 8h2v2H1zm3-3h2v5H4zm3-3h2v8H7zm3-2h2v10h-2z"/></svg>
+                      <span class="phone-5g">5G</span>
+                      <svg width="14" height="10" viewBox="0 0 16 10" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="12" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.5" y="2.5" width="8" height="5" rx="1"/><path d="M14 3.5v3"/></svg>
+                    </span>
+                  </div>
+
+                  <div class="phone-body">
+                    <div class="phone-shop-header">
+                      <div class="phone-avatar">A</div>
+                      <div class="phone-shop-info">
+                        <span class="phone-shop-name">Asha Kirana & Daily Needs</span>
+                        <span class="phone-shop-status"><span class="status-dot-green"></span> Store Open · Pune</span>
+                      </div>
+                    </div>
+
+                    <h3 id="phone-greet" class="phone-greet">Good morning, Asha 👋</h3>
+
+                    <!-- Order Card -->
+                    <div class="phone-order-card" id="phone-order-card">
+                      <div class="phone-order-header">
+                        <div class="order-id-group">
+                          <span class="pulse-ring"></span>
+                          <span class="order-tag">NEW ORDER #1042</span>
+                        </div>
+                        <span class="order-price">₹540</span>
+                      </div>
+                      
+                      <div class="order-items-list" id="phone-order">
+                        <div class="order-item-line"><span>Aashirvaad Atta (5 kg)</span><span>₹280</span></div>
+                        <div class="order-item-line"><span>Fortune Sunflower Oil (1 L)</span><span>₹190</span></div>
+                        <div class="order-item-line"><span>Amul Butter (200 g)</span><span>₹70</span></div>
+                      </div>
+
+                      <div class="order-meta-chips">
+                        <span class="meta-chip">📍 1.4 km · Model Colony</span>
+                        <span class="meta-chip">₹30 Delivery Fee</span>
+                      </div>
+
+                      <button class="phone-cta" id="phone-cta" type="button">
+                        <span>Accept this order</span>
+                        <span class="cta-arrow">→</span>
+                      </button>
+
+                      <div class="phone-status" id="phone-status" hidden>
+                        <span class="check-icon">✓</span>
+                        <span>Order accepted · Rider Rohit notified (Pickup ~6 min)</span>
+                      </div>
+                    </div>
+
+                    <!-- Mini Summary Cards -->
+                    <div class="phone-stats-grid">
+                      <div class="p-stat-box">
+                        <span class="p-stat-val">₹4,280</span>
+                        <span class="p-stat-lbl">Today's Sales</span>
+                      </div>
+                      <div class="p-stat-box">
+                        <span class="p-stat-val">8</span>
+                        <span class="p-stat-lbl">Completed</span>
+                      </div>
+                      <div class="p-stat-box p-stat-alert">
+                        <span class="p-stat-val">3</span>
+                        <span class="p-stat-lbl">Low Stock</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="phone-home-indicator"></div>
+                </div>
+                <p class="screen-note">⚡ Click the orange button to experience live order acceptance</p>
+              </div>
             </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Target: a basic shop draft in under ten minutes when details are ready. Verification can take longer.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Target metric: Basic shop live in under 10 minutes when inventory list is provided. Merchant verification takes 24–48 hours.</span>
+        </div>
       </section>
 
-      <!-- 5. Traction / Proof -->
-      <section class="slide theme-light slide-chart" data-title="Early proof" id="slide-5">
+      <!-- 5. Traction / Early proof -->
+      <section class="slide theme-light slide-chart" data-title="Early proof" data-chapter="Proof" id="slide-5">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">03 / Proof</p>
+          <p class="kicker reveal"><span class="kicker-tag">03</span> Early Proof</p>
           <h2 class="display display-sm reveal">Already live <em>in Pune.</em></h2>
+          
           <div class="viz-split reveal">
             <div class="metric-stack">
-              <article class="metric">
-                <div class="stat-n" data-count="10" data-prefix="" data-suffix="+">10+</div>
-                <div class="stat-body">
-                  <div class="stat-v">shops onboarded</div>
-                  <p>Founder reported</p>
+              <article class="metric metric-elevated">
+                <div class="metric-icon-badge">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-n" data-count="10" data-prefix="" data-suffix="+">10+</div>
+                  <div class="stat-body">
+                    <div class="stat-v">Shops onboarded</div>
+                    <p>Live trading in Pune East cluster</p>
+                  </div>
                 </div>
               </article>
-              <article class="metric">
-                <div class="stat-n" data-count="25" data-prefix="₹" data-suffix="k">₹25k</div>
-                <div class="stat-body">
-                  <div class="stat-v">daily transactions</div>
-                  <p>Approx. value, not revenue</p>
+
+              <article class="metric metric-elevated">
+                <div class="metric-icon-badge icon-orange">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-n" data-count="25" data-prefix="₹" data-suffix="k">₹25k</div>
+                  <div class="stat-body">
+                    <div class="stat-v">Daily transaction GMV</div>
+                    <p>Steady organic counter repeat value</p>
+                  </div>
                 </div>
               </article>
-              <article class="metric">
-                <div class="stat-n" data-count="4" data-prefix="" data-suffix="%">4%</div>
-                <div class="stat-body">
-                  <div class="stat-v">sales commission</div>
-                  <p>On eligible platform sales</p>
+
+              <article class="metric metric-elevated">
+                <div class="metric-icon-badge icon-teal">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-n" data-count="4" data-prefix="" data-suffix="%">4%</div>
+                  <div class="stat-body">
+                    <div class="stat-v">Sales take rate</div>
+                    <p>Contracted commission on eligible orders</p>
+                  </div>
                 </div>
               </article>
             </div>
+
             <figure class="viz-card">
               <figcaption>
-                <span>Weekly transaction value</span>
-                <small>Illustrative · ₹k / day</small>
+                <div class="viz-card-title">
+                  <span class="viz-title-main">Weekly transaction value velocity</span>
+                  <span class="viz-badge-live">Live Cluster</span>
+                </div>
+                <small class="viz-subtitle">Illustrative weekly trend · ₹k / day volume</small>
               </figcaption>
-              <svg class="viz-line" viewBox="0 0 420 220" role="img" aria-label="Weekly transaction value rising from 12 to 25">
-                <g class="viz-grid" stroke="#e2eae7" stroke-width="1">
-                  <line x1="48" y1="30" x2="400" y2="30"/>
-                  <line x1="48" y1="70" x2="400" y2="70"/>
-                  <line x1="48" y1="110" x2="400" y2="110"/>
-                  <line x1="48" y1="150" x2="400" y2="150"/>
-                  <line x1="48" y1="190" x2="400" y2="190"/>
-                </g>
-                <g class="viz-axis" fill="#66706d" font-size="11" font-family="Plus Jakarta Sans, system-ui, sans-serif">
-                  <text x="40" y="34" text-anchor="end">30</text>
-                  <text x="40" y="74" text-anchor="end">22</text>
-                  <text x="40" y="114" text-anchor="end">15</text>
-                  <text x="40" y="154" text-anchor="end">8</text>
-                  <text x="40" y="194" text-anchor="end">0</text>
-                  <text x="70" y="212" text-anchor="middle">W1</text>
-                  <text x="136" y="212" text-anchor="middle">W2</text>
-                  <text x="202" y="212" text-anchor="middle">W3</text>
-                  <text x="268" y="212" text-anchor="middle">W4</text>
-                  <text x="334" y="212" text-anchor="middle">W5</text>
-                  <text x="390" y="212" text-anchor="middle">W6</text>
-                </g>
-                <defs>
-                  <linearGradient id="fill-traction" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#e85c1c" stop-opacity="0.28"/>
-                    <stop offset="100%" stop-color="#e85c1c" stop-opacity="0.02"/>
-                  </linearGradient>
-                </defs>
-                <path d="M70 126 L136 110 L202 94 L268 78 L334 67 L390 57 L390 190 L70 190 Z" fill="url(#fill-traction)"/>
-                <path d="M70 126 L136 110 L202 94 L268 78 L334 67 L390 57" fill="none" stroke="#e85c1c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <g fill="#fff" stroke="#e85c1c" stroke-width="2.5">
-                  <circle cx="70" cy="126" r="5"/><circle cx="136" cy="110" r="5"/><circle cx="202" cy="94" r="5"/>
-                  <circle cx="268" cy="78" r="5"/><circle cx="334" cy="67" r="5"/><circle cx="390" cy="57" r="5"/>
-                </g>
-                <g fill="#e85c1c" font-size="11" font-weight="700" font-family="Plus Jakarta Sans, system-ui, sans-serif">
-                  <text x="70" y="116" text-anchor="middle">12</text>
-                  <text x="390" y="47" text-anchor="middle">25</text>
-                </g>
-              </svg>
+
+              <div class="svg-chart-container">
+                <svg class="viz-line" viewBox="0 0 420 220" role="img" aria-label="Weekly transaction value rising from 12 to 25">
+                  <defs>
+                    <linearGradient id="fill-traction" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#e85c1c" stop-opacity="0.32"/>
+                      <stop offset="80%" stop-color="#e85c1c" stop-opacity="0.04"/>
+                      <stop offset="100%" stop-color="#e85c1c" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="glow-line" x="-10%" y="-10%" width="120%" height="120%">
+                      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#e85c1c" flood-opacity="0.35"/>
+                    </filter>
+                  </defs>
+
+                  <g class="viz-grid" stroke="rgba(0, 99, 99, 0.08)" stroke-dasharray="3 3" stroke-width="1">
+                    <line x1="48" y1="30" x2="400" y2="30"/>
+                    <line x1="48" y1="70" x2="400" y2="70"/>
+                    <line x1="48" y1="110" x2="400" y2="110"/>
+                    <line x1="48" y1="150" x2="400" y2="150"/>
+                    <line x1="48" y1="190" x2="400" y2="190"/>
+                  </g>
+
+                  <g class="viz-axis" fill="#66706d" font-size="11" font-weight="600" font-family="'Plus Jakarta Sans', system-ui, sans-serif">
+                    <text x="40" y="34" text-anchor="end">30k</text>
+                    <text x="40" y="74" text-anchor="end">22k</text>
+                    <text x="40" y="114" text-anchor="end">15k</text>
+                    <text x="40" y="154" text-anchor="end">8k</text>
+                    <text x="40" y="194" text-anchor="end">0</text>
+                    <text x="70" y="212" text-anchor="middle">W1</text>
+                    <text x="136" y="212" text-anchor="middle">W2</text>
+                    <text x="202" y="212" text-anchor="middle">W3</text>
+                    <text x="268" y="212" text-anchor="middle">W4</text>
+                    <text x="334" y="212" text-anchor="middle">W5</text>
+                    <text x="390" y="212" text-anchor="middle">W6</text>
+                  </g>
+
+                  <path d="M70 126 L136 110 L202 94 L268 78 L334 67 L390 57 L390 190 L70 190 Z" fill="url(#fill-traction)"/>
+                  <path d="M70 126 L136 110 L202 94 L268 78 L334 67 L390 57" fill="none" stroke="#e85c1c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow-line)"/>
+
+                  <g fill="#fff" stroke="#e85c1c" stroke-width="2.5">
+                    <circle cx="70" cy="126" r="5"/>
+                    <circle cx="136" cy="110" r="5"/>
+                    <circle cx="202" cy="94" r="5"/>
+                    <circle cx="268" cy="78" r="5"/>
+                    <circle cx="334" cy="67" r="5"/>
+                    <circle cx="390" cy="57" r="6" stroke-width="3"/>
+                  </g>
+
+                  <!-- Value callout pills on SVG -->
+                  <g font-size="11" font-weight="700" font-family="'Plus Jakarta Sans', system-ui, sans-serif">
+                    <rect x="52" y="98" width="36" height="20" rx="4" fill="#fff" stroke="#e2eae7" stroke-width="1"/>
+                    <text x="70" y="112" fill="#e85c1c" text-anchor="middle">₹12k</text>
+                    
+                    <rect x="372" y="26" width="36" height="20" rx="4" fill="#e85c1c"/>
+                    <text x="390" y="40" fill="#fff" text-anchor="middle">₹25k</text>
+                  </g>
+                </svg>
+              </div>
             </figure>
           </div>
         </div>
-        <p class="slidefoot reveal">Founder reported 20 Nov 2026. Ledger, refunds, and collected commission still need verification.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Founder reported snapshot (Nov 2026). Platform ledger, merchant accounts, and settled commissions will be audited in formal diligence.</span>
+        </div>
       </section>
 
-      <!-- 6. Economics -->
-      <section class="slide theme-light slide-chart" data-title="How we earn" id="slide-6">
+      <!-- 6. Economics / How we earn -->
+      <section class="slide theme-light slide-chart" data-title="How we earn" data-chapter="Proof" id="slide-6">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">03 / Proof · Economics</p>
+          <p class="kicker reveal"><span class="kicker-tag">03</span> Proof · Unit Economics</p>
           <h2 class="display display-sm reveal">A simple fee. <em>Economics to prove.</em></h2>
+          
           <div class="flow-row reveal">
             <div class="flow-step">
+              <span class="step-num">Step 1</span>
               <div class="unit-amt">₹500</div>
-              <div class="unit-label">Illustrative order</div>
-              <div class="unit-note">Eligible product value</div>
+              <div class="unit-label">Typical Order Basket</div>
+              <div class="unit-note">Eligible local product GMV</div>
             </div>
-            <span class="flow-arrow" aria-hidden="true">→</span>
+
+            <div class="flow-arrow-wrap" aria-hidden="true">
+              <span class="flow-arrow">→</span>
+              <span class="arrow-label">4% take</span>
+            </div>
+
             <div class="flow-step accent">
+              <span class="step-num step-accent">Step 2 · Revenue</span>
               <div class="unit-amt accent">₹20</div>
-              <div class="unit-label">Nukaazo revenue</div>
-              <div class="unit-note">4% commission</div>
+              <div class="unit-label">Nukaazo Commission</div>
+              <div class="unit-note">Day-1 platform revenue</div>
             </div>
-            <span class="flow-arrow" aria-hidden="true">→</span>
-            <div class="flow-step">
-              <div class="unit-amt">₹8</div>
-              <div class="unit-label">Contribution</div>
-              <div class="unit-note">After payment + other costs</div>
+
+            <div class="flow-arrow-wrap" aria-hidden="true">
+              <span class="flow-arrow">→</span>
+              <span class="arrow-label">40% net</span>
+            </div>
+
+            <div class="flow-step contribution-step">
+              <span class="step-num step-teal">Step 3 · Profit</span>
+              <div class="unit-amt color-teal">₹8</div>
+              <div class="unit-label">Net Order Contribution</div>
+              <div class="unit-note">After payment + variable costs</div>
             </div>
           </div>
+
           <div class="chart-panel reveal">
             <div class="chart-head">
-              <div class="chart-label">Where the ₹20 commission goes</div>
-              <p class="chart-note">₹10 payment · ₹2 other variable · ₹8 contribution</p>
+              <div class="chart-label-group">
+                <span class="chart-label">Unit Breakdown of ₹20 Commission</span>
+                <span class="chart-badge-tag">₹500 Order</span>
+              </div>
+              <p class="chart-note">₹10 Payment gateway (~2%) · ₹2 Cloud/variable (~0.4%) · ₹8 Unit Contribution (~40% take margin)</p>
             </div>
             <div class="chart-frame">
-              <canvas id="chart-economics" aria-label="Unit economics chart"></canvas>
+              <canvas id="chart-economics" aria-label="Unit economics bar chart"></canvas>
             </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Planning case, not observed margin. Assumes no delivery subsidy and ~2% payment expense on product GMV.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Planning model economics. Assumes zero consumer delivery subsidies and standard ~2% payment processing costs on merchandise GMV.</span>
+        </div>
       </section>
 
-      <!-- 7. Growth -->
-      <section class="slide theme-light slide-chart" data-title="How we grow" id="slide-7">
+      <!-- 7. Growth / Expansion gates -->
+      <section class="slide theme-light slide-chart" data-title="How we grow" data-chapter="Plan" id="slide-7">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">04 / Plan · Growth</p>
+          <p class="kicker reveal"><span class="kicker-tag">04</span> Expansion Strategy</p>
           <h2 class="display display-sm reveal">Win one neighbourhood. <em>Then repeat.</em></h2>
+          
           <div class="pillar-row reveal">
-            <article>
-              <div class="pillar-num">Supply</div>
-              <h3>Reliable shops</h3>
-              <p>Digitise fast movers, service area, and delivery promise.</p>
+            <article class="growth-card">
+              <div class="pillar-num">Pillar 1</div>
+              <h3>Supply density</h3>
+              <p>Digitise 15–20 essential shops per neighbourhood to ensure fast fulfilment and full basket coverage.</p>
             </article>
-            <article>
-              <div class="pillar-num">Demand</div>
-              <h3>Existing relationships</h3>
-              <p>Turn counters and local repeat buyers into online orders.</p>
+
+            <article class="growth-card">
+              <div class="pillar-num">Pillar 2</div>
+              <h3>Organic counter demand</h3>
+              <p>Leverage existing physical footfall and shop loyalty to convert counter shoppers into digital repeat buyers.</p>
             </article>
-            <article>
-              <div class="pillar-num">Quality</div>
-              <h3>Earn the next cluster</h3>
-              <p>Prove fulfilment and contribution before expanding.</p>
+
+            <article class="growth-card">
+              <div class="pillar-num">Pillar 3</div>
+              <h3>Unit discipline</h3>
+              <p>Prove 3 consecutive months of positive local contribution before unlocking expansion to the next cluster.</p>
             </article>
           </div>
+
           <div class="chart-panel reveal">
             <div class="chart-head">
-              <div class="chart-label">Expansion gate — target quality bar</div>
-              <p class="chart-note">Must clear all three before the next neighbourhood</p>
+              <div class="chart-label-group">
+                <span class="chart-label">Expansion Gate — Target Quality Bar</span>
+                <span class="chart-badge-tag">Strict Operational Gate</span>
+              </div>
+              <p class="chart-note">All three thresholds must be cleared simultaneously before capital is unlocked for the next pin code</p>
             </div>
             <div class="chart-frame chart-frame-wide">
-              <canvas id="chart-growth" aria-label="Quality gate chart"></canvas>
+              <canvas id="chart-growth" aria-label="Quality gate target chart"></canvas>
             </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Proposed gate: ≥95% fulfilment, 30% 30-day buyer repeat, and positive local contribution for 3 months.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Expansion gate criteria: ≥95% order fulfilment, ≥30% 30-day repeat buyer rate, and 3 consecutive months of positive local contribution.</span>
+        </div>
       </section>
 
       <!-- 8. Roadmap -->
-      <section class="slide theme-light slide-chart" data-title="18-month roadmap" id="slide-8">
+      <section class="slide theme-light slide-chart" data-title="18-month roadmap" data-chapter="Plan" id="slide-8">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">04 / Plan · Roadmap</p>
+          <p class="kicker reveal"><span class="kicker-tag">04</span> 18-Month Plan</p>
           <h2 class="display display-sm reveal">Three stages. <em>Evidence at each.</em></h2>
+          
           <div class="chart-panel reveal">
             <div class="chart-head">
-              <div class="chart-label">Active shops target path</div>
-              <p class="chart-note">10 → 100 → 300 → 700 over 18 months</p>
+              <div class="chart-label-group">
+                <span class="chart-label">Active Transacting Shops Trajectory</span>
+                <span class="chart-badge-tag">10 → 100 → 300 → 700</span>
+              </div>
+              <p class="chart-note">Structured scaling milestones backed by operational evidence at each funding tranche</p>
             </div>
             <div class="chart-frame chart-frame-lg">
               <canvas id="chart-roadmap" aria-label="Shop growth roadmap chart"></canvas>
             </div>
           </div>
+
           <div class="stage-row reveal">
-            <article>
-              <div class="road-when">Months 1–6</div>
+            <article class="stage-card">
+              <div class="road-when">Stage 1 · Months 1–6</div>
               <div class="road-n">100</div>
-              <p>Verify Pune trading. Strengthen apps, stock tools, and training.</p>
+              <div class="road-metric">Active Shops</div>
+              <p>Prove core Pune unit economics. Perfect shopkeeper onboarding, inventory accuracy, and merchant training loops.</p>
             </article>
-            <article>
-              <div class="road-when">Months 7–12</div>
+
+            <article class="stage-card">
+              <div class="road-when">Stage 2 · Months 7–12</div>
               <div class="road-n">300</div>
-              <p>Pilot Proxy, test B2B demand reports, extend clusters.</p>
+              <div class="road-metric">Active Shops</div>
+              <p>Pilot Nukaazo Proxy bulk ordering, launch B2B brand demand reports, and expand into 3 adjacent Pune micro-markets.</p>
             </article>
-            <article>
-              <div class="road-when">Months 13–18</div>
+
+            <article class="stage-card">
+              <div class="road-when">Stage 3 · Months 13–18</div>
               <div class="road-n">700</div>
-              <p>Validate forecasts. Second city only if economics hold.</p>
+              <div class="road-metric">Active Shops</div>
+              <p>Validate forecasting models. Prepare rollout to 2nd tier-1/tier-2 city only if local contribution margins remain positive.</p>
             </article>
           </div>
         </div>
-        <p class="slidefoot reveal">Targets from funding kickoff. “Active” = at least one eligible completed order in a month.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Milestones calculated from funding close. “Active Shop” defined as completing at least 15 verified customer orders per month.</span>
+        </div>
       </section>
 
-      <!-- 9. Ask -->
-      <section class="slide theme-light slide-chart" data-title="The ask" id="slide-9">
+      <!-- 9. Ask / Capital allocation -->
+      <section class="slide theme-light slide-chart" data-title="The ask" data-chapter="Ask" id="slide-9">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">05 / The ask</p>
+          <p class="kicker reveal"><span class="kicker-tag">05</span> The Financing Ask</p>
           <div class="ask-layout reveal">
             <div class="ask-copy">
-              <h2 class="ask">₹2.25<span>crore</span></h2>
-              <h3 class="ask-sub">18 months to <em>prove the model.</em></h3>
+              <div class="ask-hero-group">
+                <h2 class="ask">₹2.25<span class="ask-unit">CRORE</span></h2>
+                <h3 class="ask-sub">18 months of runway to <em>prove the model.</em></h3>
+              </div>
+
               <div class="ask-list">
-                <article>
-                  <b>₹198L</b>
-                  <span>Fixed operating plan</span>
+                <article class="ask-item">
+                  <div class="ask-item-left">
+                    <span class="ask-color-indicator dot-teal"></span>
+                    <div>
+                      <b>₹198 Lakhs</b>
+                      <span class="ask-share">88% of raise</span>
+                    </div>
+                  </div>
+                  <span class="ask-desc">Engineering, local field operations & Pune merchant ops</span>
                 </article>
-                <article>
-                  <b>₹38L</b>
-                  <span>Setup + capped Proxy pilot</span>
+
+                <article class="ask-item">
+                  <div class="ask-item-left">
+                    <span class="ask-color-indicator dot-orange"></span>
+                    <div>
+                      <b>₹38 Lakhs</b>
+                      <span class="ask-share">17% of raise</span>
+                    </div>
+                  </div>
+                  <span class="ask-desc">Product infrastructure, setup & capped Proxy pilot</span>
                 </article>
-                <article>
-                  <b>₹33.6L</b>
-                  <span>Reserve after modelled contribution</span>
+
+                <article class="ask-item">
+                  <div class="ask-item-left">
+                    <span class="ask-color-indicator dot-peach"></span>
+                    <div>
+                      <b>₹33.6 Lakhs</b>
+                      <span class="ask-share">15% of raise</span>
+                    </div>
+                  </div>
+                  <span class="ask-desc">Cash reserve buffer after modelled gross contribution</span>
                 </article>
               </div>
             </div>
+
             <div class="chart-panel chart-panel-donut">
               <div class="chart-head">
-                <div class="chart-label">Capital uses</div>
+                <div class="chart-label">Capital Allocation Breakdown</div>
               </div>
               <div class="chart-frame chart-frame-donut">
-                <canvas id="chart-ask" aria-label="Capital allocation chart"></canvas>
+                <canvas id="chart-ask" aria-label="Capital allocation doughnut chart"></canvas>
+                <div class="donut-center-badge" aria-hidden="true">
+                  <span class="donut-center-val">₹2.25 Cr</span>
+                  <span class="donut-center-lbl">Total Ask</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Proposed raise. Full amount assumes ₹44.6L core contribution. Downside needs slower spend or more capital.</p>
-      </section>
-
-      <!-- 10. Close -->
-      <section class="slide theme-light" data-title="The decision" id="slide-10">
-        <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
-        <div class="slide-inner">
-          <p class="kicker reveal">05 / Why invest</p>
-          <h2 class="display reveal">Build with the shopkeeper.<br><em>Scale with evidence.</em></h2>
-          <p class="lead reveal">The next proof is clear: verified Pune transactions, retained shops, repeat customers, and positive local contribution.</p>
-          <ul class="proof-list reveal">
-            <li>Software for shops that already have demand</li>
-            <li>Simple 4% commerce fee with room to prove margin</li>
-            <li>Neighbourhood expansion gated by real operating quality</li>
-          </ul>
-          <p class="site-cta reveal">Live product: <a href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">www.nukaazo.com</a></p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Proposed financing structure. Full plan assumes ₹44.6L core order contribution. Conservative downside buffers spend runway to 15+ months.</span>
         </div>
-        <p class="slidefoot reveal">Funding, valuation, and terms remain open. Later upside (Proxy, AI, B2B) has separate validation gates.</p>
       </section>
 
-      <!-- 11. Upside -->
-      <section class="slide theme-light" data-title="Later upside" id="slide-11">
+      <!-- 10. Close / The decision -->
+      <section class="slide theme-light" data-title="The decision" data-chapter="Ask" id="slide-10">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">Appendix · Opportunities</p>
-          <h2 class="display reveal">Two lines to test<br><em>after the core works.</em></h2>
-          <div class="duo-light reveal">
-            <article>
-              <div class="duo-tag">Opportunity 1</div>
-              <h3>Nukaazo Proxy</h3>
-              <p>A shorter route from supplier to shelf. Combine shop demand, compare total cost, and pilot with ~20 shops inside a ₹20L cap.</p>
-              <div class="mini-chain">
-                <span>Supplier</span><span>→</span><span class="focus">Proxy</span><span>→</span><span>Shop</span><span>→</span><span>Customer</span>
-              </div>
+          <p class="kicker reveal"><span class="kicker-tag">05</span> Why Invest Now</p>
+          <h2 class="display reveal">Build with the shopkeeper.<br><em>Scale with evidence.</em></h2>
+          <p class="lead reveal">The next milestones are concrete: verified Pune transactions, high merchant retention, repeat neighbourhood shoppers, and unit profitability.</p>
+          
+          <div class="proof-grid reveal">
+            <article class="proof-card">
+              <div class="proof-card-icon">⚡</div>
+              <h3>Real Offline Demand</h3>
+              <p>Digitising existing trusted counter sales, rather than subsidising artificial customer behaviour with cash burn.</p>
             </article>
-            <article>
-              <div class="duo-tag">Opportunity 2</div>
-              <h3>Data &amp; AI</h3>
-              <p>Better stock decisions for shopkeepers. Aggregated local demand signals for brands — only with permission and controls.</p>
+
+            <article class="proof-card">
+              <div class="proof-card-icon">📈</div>
+              <h3>Clean Take Rate</h3>
+              <p>Immediate 4% commerce revenue with an expanding path into B2B bulk supply margins via Nukaazo Proxy.</p>
+            </article>
+
+            <article class="proof-card">
+              <div class="proof-card-icon">🎯</div>
+              <h3>Gated Expansion</h3>
+              <p>Capital is only deployed into new neighbourhoods once existing clusters prove positive local contribution.</p>
+            </article>
+          </div>
+
+          <div class="close-cta-bar reveal">
+            <div class="cta-left">
+              <span class="cta-prompt">Ready to explore diligence?</span>
+              <span class="cta-sub">Product code, merchant metrics, and financial models are open for inspection.</span>
+            </div>
+            <div class="cta-buttons">
+              <a class="btn-primary-pitch" href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">
+                <span>Visit www.nukaazo.com</span>
+                <span class="arrow">↗</span>
+              </a>
+              <button class="btn-secondary-pitch" type="button" data-jump="12">View Model Details →</button>
+            </div>
+          </div>
+        </div>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Funding terms, valuation cap, and instrument remain open for discussion with lead institutional investors.</span>
+        </div>
+      </section>
+
+      <!-- 11. Appendix - Upside -->
+      <section class="slide theme-light" data-title="Later upside" data-chapter="Appendix" id="slide-11">
+        <div class="slide-bg" aria-hidden="true">
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
+        <div class="slide-inner">
+          <p class="kicker reveal"><span class="kicker-tag">Appendix</span> Long-Term Optionality</p>
+          <h2 class="display reveal">Two expansion engines<br><em>after the core works.</em></h2>
+          
+          <div class="duo-light reveal">
+            <article class="upside-card">
+              <div class="duo-tag">Opportunity 1 · B2B Commerce</div>
+              <h3>Nukaazo Proxy</h3>
+              <p>A direct route from FMCG suppliers to counter shelves. Pooling demand across 100+ local shops allows merchants to unlock wholesale tier pricing without middlemen markups.</p>
+              
+              <div class="mini-chain" aria-label="Supply chain diagram">
+                <span class="chain-node">Supplier</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node focus">Nukaazo Proxy Pool</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Local Shop</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Consumer</span>
+              </div>
+              <p class="card-caption">Pilot plan: ~20 shops inside a ₹20L capped experiment with zero inventory holding risk.</p>
+            </article>
+
+            <article class="upside-card">
+              <div class="duo-tag">Opportunity 2 · Intelligence</div>
+              <h3>Neighbourhood Data & AI</h3>
+              <p>Hyperlocal predictive stock suggestions for merchants based on pin-code consumption patterns, combined with aggregated brand demand signals for FMCG distributors.</p>
+              
               <ul class="mini-bullets">
-                <li>What should I stock?</li>
-                <li>Where will it sell?</li>
+                <li><strong>Predictive stocking:</strong> What will sell this weekend in Model Colony?</li>
+                <li><strong>Brand intelligence:</strong> Real-time SKU velocity across unorganised retail.</li>
+                <li><strong>Privacy by design:</strong> Aggregated reporting with merchant permission controls.</li>
               </ul>
             </article>
           </div>
         </div>
-        <p class="slidefoot reveal">Neither line is in the forecast revenue. Supplier terms, savings, and forecast accuracy are unverified.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Both opportunities represent upside optionality and are excluded from Year 1 base revenue forecasts.</span>
+        </div>
       </section>
 
-      <!-- 12. Model -->
-      <section class="slide theme-light slide-chart" data-title="Model assumptions" id="slide-12">
+      <!-- 12. Appendix - Model assumptions -->
+      <section class="slide theme-light slide-chart" data-title="Model assumptions" data-chapter="Appendix" id="slide-12">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">Appendix · Financial model</p>
+          <p class="kicker reveal"><span class="kicker-tag">Appendix</span> Financial Model</p>
           <h2 class="display display-sm reveal">What the model <em>actually assumes.</em></h2>
+          
           <div class="model-layout reveal">
             <div class="table table-compact">
               <div class="table-row head">
-                <span>Core commerce</span><span>Year 1</span><span>Year 2</span>
+                <span>Core Commerce Metric</span>
+                <span>Year 1</span>
+                <span>Year 2</span>
               </div>
-              <div class="table-row"><span>Product GMV</span><span>₹7.11cr</span><span>₹75.36cr</span></div>
-              <div class="table-row"><span>4% commission revenue</span><span>₹28.44L</span><span>₹301.44L</span></div>
-              <div class="table-row"><span>Order contribution</span><span>₹11.38L</span><span>₹120.58L</span></div>
-              <div class="table-row"><span>Fixed operating spend</span><span>₹108.00L</span><span>₹213.00L</span></div>
+              <div class="table-row">
+                <span>Total Product GMV</span>
+                <span class="t-val">₹7.11 Cr</span>
+                <span class="t-val highlight">₹75.36 Cr</span>
+              </div>
+              <div class="table-row">
+                <span>4% Commission Revenue</span>
+                <span class="t-val">₹28.44 L</span>
+                <span class="t-val highlight">₹301.44 L</span>
+              </div>
+              <div class="table-row">
+                <span>Net Order Contribution</span>
+                <span class="t-val">₹11.38 L</span>
+                <span class="t-val highlight">₹120.58 L</span>
+              </div>
+              <div class="table-row">
+                <span>Fixed Operating Spend</span>
+                <span class="t-val">₹108.00 L</span>
+                <span class="t-val">₹213.00 L</span>
+              </div>
+              <div class="table-row foot">
+                <span>Active Shops (End of Year)</span>
+                <span class="t-val">300 shops</span>
+                <span class="t-val">1,200 shops</span>
+              </div>
             </div>
+
             <div class="chart-panel">
               <div class="chart-head">
-                <div class="chart-label">Commission vs fixed spend (₹L)</div>
+                <div class="chart-label-group">
+                  <span class="chart-label">Commission vs Fixed Spend (₹ Lakhs)</span>
+                </div>
               </div>
               <div class="chart-frame">
                 <canvas id="chart-model" aria-label="Year 1 vs Year 2 financial chart"></canvas>
               </div>
             </div>
           </div>
-          <p class="note reveal">₹500 basket · ~2% payment expense · 0.4% other variable cost · no B2B, subscriptions, campaigns, or Proxy revenue.</p>
+          <p class="note reveal">Model drivers: ₹500 avg basket size · ~2% payment processing cost · 0.4% other variable cloud/SMS costs · zero revenue assumed from B2B ads, Proxy, or subscriptions.</p>
         </div>
-        <p class="slidefoot reveal">Forward-looking from funding kickoff. Reported Pune snapshot is not counted as historical revenue here.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Forward-looking financial plan. Live Pune figures serve as feasibility data points rather than audited historical revenue.</span>
+        </div>
       </section>
 
-      <!-- 13. Risk -->
-      <section class="slide theme-light" data-title="Capital & risk" id="slide-13">
+      <!-- 13. Appendix - Risk & mitigation -->
+      <section class="slide theme-light" data-title="Capital & risk" data-chapter="Appendix" id="slide-13">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">Appendix · Risk</p>
-          <h2 class="display reveal">The case needs<br><em>disciplined capital.</em></h2>
+          <p class="kicker reveal"><span class="kicker-tag">Appendix</span> Risk & Governance</p>
+          <h2 class="display reveal">Disciplined capital,<br><em>transparent risks.</em></h2>
+          
           <div class="stack reveal">
-            <div>
-              <b>Core margin</b>
-              <span>₹8 per illustrative ₹500 order before fixed costs. Payment fees can consume half the commission.</span>
+            <div class="risk-card">
+              <div class="risk-head">
+                <span class="risk-pill">Margin Sensitivity</span>
+                <b>Core Margin Protection</b>
+              </div>
+              <p>Payment gateway fees (~2%) take half of the 4% commission. <em>Mitigation:</em> Direct UPI integrations and shopkeeper wallet settlements reduce transaction overhead.</p>
             </div>
-            <div>
-              <b>Proxy exposure</b>
-              <span>Up to ₹20L capped. Supplier-direct and prepaid first; inventory or credit needs separate approval.</span>
+
+            <div class="risk-card">
+              <div class="risk-head">
+                <span class="risk-pill">B2B Exposure</span>
+                <b>Strict Proxy Capital Cap</b>
+              </div>
+              <p>Wholesale distribution carries working capital risk. <em>Mitigation:</em> Proxy is strictly capped at ₹20L, operating strictly on supplier-direct pre-paid or cash-on-delivery terms.</p>
             </div>
-            <div>
-              <b>Downside</b>
-              <span>At 60% shops, 80% frequency, ₹450 basket — month-18 cash ~₹8.3L, below the ₹25L reserve.</span>
+
+            <div class="risk-card">
+              <div class="risk-head">
+                <span class="risk-pill">Downside Scenario</span>
+                <b>Runway Stress Testing</b>
+              </div>
+              <p>Under a downside stress test (60% active shops, 80% order frequency), month-18 cash remains above ₹8.3L with an emergency hiring freeze trigger.</p>
             </div>
-            <div>
-              <b>Follow-on</b>
-              <span>Core still below fixed-cost break-even at month 24. Prepare the next round around month 12.</span>
+
+            <div class="risk-card">
+              <div class="risk-head">
+                <span class="risk-pill">Financing Timing</span>
+                <b>Follow-on Milestones</b>
+              </div>
+              <p>Fixed overhead reaches break-even in year 2. Series A fundraising will initiate around Month 12 based on verified cohort retention metrics.</p>
             </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Reconcile actual costs and tax treatment before presenting this as a financing forecast.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>Risk disclosures prepared for institutional diligence. Final investment documentation will reflect audited banking terms.</span>
+        </div>
       </section>
 
-      <!-- 14. Evidence -->
-      <section class="slide theme-light" data-title="Evidence" id="slide-14">
+      <!-- 14. Appendix - Evidence & links -->
+      <section class="slide theme-light" data-title="Evidence" data-chapter="Appendix" id="slide-14">
         <div class="slide-bg" aria-hidden="true">
-        <span class="geo geo-blob"></span>
-        <span class="geo geo-arc"></span>
-        <span class="geo geo-line"></span>
-      </div>
+          <div class="ambient-glow glow-top-right"></div>
+          <div class="ambient-glow glow-bottom-left"></div>
+          <div class="grid-texture"></div>
+          <span class="geo geo-line"></span>
+        </div>
         <div class="slide-inner">
-          <p class="kicker reveal">Appendix · Evidence</p>
+          <p class="kicker reveal"><span class="kicker-tag">Appendix</span> Diligence Ledger</p>
           <h2 class="display reveal">Facts, assumptions,<br><em>open questions.</em></h2>
-          <div class="stack reveal">
-            <div>
-              <b>Founder reported</b>
-              <span>Pune launch · 10+ shops · ~₹25,000/day transaction value · 4% commission.</span>
+          
+          <div class="evidence-grid reveal">
+            <div class="evidence-column">
+              <span class="evidence-tag tag-green">Verified / Reported</span>
+              <ul class="evidence-list">
+                <li>Pune pilot launch with 10+ onboarded shops</li>
+                <li>~₹25,000/day gross transaction volume</li>
+                <li>4% platform commission model</li>
+                <li>Three functional web apps & merchant back-end</li>
+              </ul>
             </div>
-            <div>
-              <b>Assumed</b>
-              <span>Funding, costs, shop/order growth, stock tools, Proxy, and B2B services.</span>
+
+            <div class="evidence-column">
+              <span class="evidence-tag tag-amber">Model Assumptions</span>
+              <ul class="evidence-list">
+                <li>₹500 average order basket value</li>
+                <li>18-month roadmap to 700 active shops</li>
+                <li>Capped ₹20L Nukaazo Proxy experiment</li>
+                <li>~2% payment gateway expense</li>
+              </ul>
             </div>
-            <div>
-              <b>To verify</b>
-              <span>Ledger, active shops, fees collected, repeat buyers, live features, suppliers, payment quotes.</span>
+
+            <div class="evidence-column">
+              <span class="evidence-tag tag-blue">Open Diligence Items</span>
+              <ul class="evidence-list">
+                <li>Merchant ledger & bank statement reconciliation</li>
+                <li>30-day cohort buyer repeat verification</li>
+                <li>Direct UPI payment gateway fee agreements</li>
+                <li>Pilot supplier wholesale discount terms</li>
+              </ul>
             </div>
           </div>
-          <div class="links reveal">
-            <a class="site-primary" href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">www.nukaazo.com</a>
-            <a href="https://razorpay.com/pricing/" target="_blank" rel="noopener noreferrer">Payment fee reference</a>
-            <a href="https://ondc.org/pages/seller-network-participants.html" target="_blank" rel="noopener noreferrer">Commerce network context</a>
-            <a href="https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf" target="_blank" rel="noopener noreferrer">Privacy rules</a>
-            <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12896" target="_blank" rel="noopener noreferrer">Payments framework</a>
+
+          <div class="links-card reveal">
+            <span class="links-title">Public Reference Links & Context:</span>
+            <div class="links-row">
+              <a class="site-primary" href="https://www.nukaazo.com" target="_blank" rel="noopener noreferrer">Live Site: www.nukaazo.com ↗</a>
+              <a href="https://razorpay.com/pricing/" target="_blank" rel="noopener noreferrer">Payment Fee Benchmark ↗</a>
+              <a href="https://ondc.org/pages/seller-network-participants.html" target="_blank" rel="noopener noreferrer">ONDC Network Context ↗</a>
+              <a href="https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf" target="_blank" rel="noopener noreferrer">India DPDP Privacy Rules ↗</a>
+              <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12896" target="_blank" rel="noopener noreferrer">RBI Payment Aggregator Framework ↗</a>
+            </div>
           </div>
         </div>
-        <p class="slidefoot reveal">Public links are context, not proof of Nukaazo performance. No market-share claim is made.</p>
+        <div class="slidefoot reveal">
+          <span class="slidefoot-icon">ℹ</span>
+          <span>External links provide regulatory and market reference. No specific market-share or regulatory endorsement is claimed.</span>
+        </div>
       </section>
     </main>
 
+    <!-- Nav Footer -->
     <footer class="nav">
       <div class="nav-left">
-        <span id="count">01 / 14</span>
+        <span id="count" class="nav-count">01 / 14</span>
+        <span class="nav-divider">·</span>
         <span class="nav-title" id="slide-title">Why we're here</span>
         <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
       </div>
       <div class="nav-actions">
-        <button type="button" id="prev" aria-label="Previous slide">← Back</button>
-        <button type="button" class="next" id="next" aria-label="Next slide">Next →</button>
+        <button type="button" id="prev" aria-label="Previous slide" class="nav-btn nav-btn-prev">
+          <span class="kbd-hint">←</span>
+          <span>Back</span>
+        </button>
+        <button type="button" class="nav-btn nav-btn-next next" id="next" aria-label="Next slide">
+          <span>Next</span>
+          <span class="kbd-hint">→</span>
+        </button>
       </div>
     </footer>
   </div>
 
+  <!-- Hotzones for click navigation -->
   <div class="hotzones" aria-hidden="true">
     <button type="button" class="hotzone hotzone-prev" id="hot-prev" tabindex="-1" aria-label="Previous slide"></button>
     <button type="button" class="hotzone hotzone-next" id="hot-next" tabindex="-1" aria-label="Next slide"></button>
   </div>
 
+  <!-- Slide Overview Modal -->
   <div class="overview" id="overview" hidden>
     <div class="overview-panel" role="dialog" aria-modal="true" aria-labelledby="overview-title">
       <div class="overview-head">
-        <h2 id="overview-title">Jump to a slide</h2>
+        <div class="overview-title-group">
+          <h2 id="overview-title">Pitch Deck Index</h2>
+          <span class="overview-count">14 Slides</span>
+        </div>
         <button type="button" class="overview-close" id="overview-close" aria-label="Close overview">✕</button>
       </div>
       <div class="overview-grid" id="overview-grid"></div>
-      <p class="overview-hint">Esc to close · click a card to jump</p>
+      <div class="overview-footer">
+        <span class="overview-hint">Click any card to jump · Press <kbd>Esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcuts-modal" hidden>
+    <div class="shortcuts-panel" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+      <div class="shortcuts-head">
+        <h3 id="shortcuts-title">Keyboard Shortcuts</h3>
+        <button type="button" class="shortcuts-close" id="shortcuts-close" aria-label="Close shortcuts">✕</button>
+      </div>
+      <div class="shortcuts-grid">
+        <div class="shortcut-row"><kbd>→</kbd> or <kbd>Space</kbd> <span>Next slide</span></div>
+        <div class="shortcut-row"><kbd>←</kbd> <span>Previous slide</span></div>
+        <div class="shortcut-row"><kbd>O</kbd> <span>Toggle Slide Index</span></div>
+        <div class="shortcut-row"><kbd>F</kbd> <span>Toggle Fullscreen</span></div>
+        <div class="shortcut-row"><kbd>Home</kbd> <span>First slide</span></div>
+        <div class="shortcut-row"><kbd>End</kbd> <span>Last slide</span></div>
+        <div class="shortcut-row"><kbd>Esc</kbd> <span>Close dialogs</span></div>
+        <div class="shortcut-row"><kbd>?</kbd> <span>This help menu</span></div>
+      </div>
     </div>
   </div>
 

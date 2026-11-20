@@ -7,10 +7,20 @@
   const announce = document.getElementById("announcer");
   const stage = document.querySelector(".stage");
   const dotsEl = document.getElementById("dots");
+  const progressBar = document.getElementById("deck-progress-bar");
+  const crumbChapter = document.getElementById("crumb-chapter");
+  const crumbTitle = document.getElementById("crumb-title");
+  
   const overview = document.getElementById("overview");
   const overviewBtn = document.getElementById("overview-btn");
   const overviewClose = document.getElementById("overview-close");
   const overviewGrid = document.getElementById("overview-grid");
+  
+  const shortcutsBtn = document.getElementById("shortcuts-btn");
+  const shortcutsModal = document.getElementById("shortcuts-modal");
+  const shortcutsClose = document.getElementById("shortcuts-close");
+  const fullscreenBtn = document.getElementById("fullscreen-btn");
+
   const chapterBtns = [...document.querySelectorAll("[data-chapter]")];
 
   const CHAPTER_BY_SLIDE = [
@@ -33,10 +43,11 @@
   let index = 0;
   let animating = false;
   let overviewOpen = false;
+  let shortcutsOpen = false;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGsap = typeof gsap !== "undefined";
 
-  /* —— Build dots + overview —— */
+  /* —— Build Dots & Overview Grid —— */
   slides.forEach((slide, i) => {
     const dot = document.createElement("button");
     dot.type = "button";
@@ -49,7 +60,11 @@
     const card = document.createElement("button");
     card.type = "button";
     card.className = "overview-card";
-    card.innerHTML = `<span class="overview-num">${String(i + 1).padStart(2, "0")}</span><span class="overview-label">${slide.dataset.title}</span>`;
+    const chapterName = slide.dataset.chapter || `0${i + 1}`;
+    card.innerHTML = `
+      <span class="overview-num">${String(i + 1).padStart(2, "0")} · ${chapterName}</span>
+      <span class="overview-label">${slide.dataset.title}</span>
+    `;
     card.addEventListener("click", () => {
       closeOverview();
       show(i);
@@ -61,11 +76,36 @@
   const overviewCards = [...overviewGrid.querySelectorAll(".overview-card")];
 
   function setChrome(i) {
-    countEl.textContent = `${String(i + 1).padStart(2, "0")} / ${slides.length}`;
+    const total = slides.length;
+    countEl.textContent = `${String(i + 1).padStart(2, "0")} / ${total}`;
     titleEl.textContent = slides[i].dataset.title;
+    
+    if (crumbChapter) {
+      crumbChapter.textContent = slides[i].dataset.chapter || "Deck";
+    }
+    if (crumbTitle) {
+      crumbTitle.textContent = slides[i].dataset.title;
+    }
+    
+    if (progressBar) {
+      const pct = Math.round(((i + 1) / total) * 100);
+      progressBar.style.width = `${pct}%`;
+      const progressContainer = document.getElementById("deck-progress");
+      if (progressContainer) {
+        progressContainer.setAttribute("aria-valuenow", String(pct));
+      }
+    }
+
     prevBtn.disabled = i === 0;
-    nextBtn.textContent = i === slides.length - 1 ? "Start over ↺" : "Next →";
-    announce.textContent = `Slide ${i + 1} of ${slides.length}: ${slides[i].dataset.title}`;
+    const isLast = i === total - 1;
+    const nextBtnText = nextBtn.querySelector("span:first-child");
+    if (nextBtnText) {
+      nextBtnText.textContent = isLast ? "Restart ↺" : "Next";
+    } else {
+      nextBtn.innerHTML = isLast ? `<span>Restart ↺</span>` : `<span>Next</span> <span class="kbd-hint">→</span>`;
+    }
+
+    announce.textContent = `Slide ${i + 1} of ${total}: ${slides[i].dataset.title}`;
 
     dots.forEach((d, j) => {
       d.classList.toggle("is-active", j === i);
@@ -102,12 +142,12 @@
 
     gsap.fromTo(
       items,
-      { opacity: 0, y: 18 },
+      { opacity: 0, y: 16 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.5,
-        stagger: 0.06,
+        duration: 0.45,
+        stagger: 0.05,
         ease: "power3.out",
         overwrite: "auto",
       }
@@ -130,9 +170,9 @@
       const state = { val: 0 };
       gsap.to(state, {
         val: end,
-        duration: 1.05,
+        duration: 0.9,
         ease: "power2.out",
-        delay: 0.15,
+        delay: 0.1,
         onUpdate: () => {
           el.textContent = `${prefix}${Math.round(state.val)}${suffix}`;
         },
@@ -198,19 +238,21 @@
 
     gsap.set(incoming, {
       opacity: 0,
-      x: goingForward ? 40 : -40,
+      x: goingForward ? 32 : -32,
       zIndex: 3,
     });
     gsap.set(outgoing, { zIndex: 2 });
 
-    tl.to(outgoing, { opacity: 0, x: goingForward ? -28 : 28, duration: 0.34 }, 0).to(
+    tl.to(outgoing, { opacity: 0, x: goingForward ? -24 : 24, duration: 0.3 }, 0).to(
       incoming,
-      { opacity: 1, x: 0, duration: 0.38 },
-      0.05
+      { opacity: 1, x: 0, duration: 0.35 },
+      0.04
     );
   }
 
+  /* —— Modals: Overview & Shortcuts —— */
   function openOverview() {
+    closeShortcuts();
     overview.hidden = false;
     overviewOpen = true;
     overviewBtn.setAttribute("aria-expanded", "true");
@@ -225,15 +267,51 @@
     document.body.classList.remove("overview-open");
   }
 
-  /* —— Controls —— */
+  function openShortcuts() {
+    closeOverview();
+    if (shortcutsModal) {
+      shortcutsModal.hidden = false;
+      shortcutsOpen = true;
+      shortcutsClose.focus();
+    }
+  }
+
+  function closeShortcuts() {
+    if (shortcutsModal) {
+      shortcutsModal.hidden = true;
+      shortcutsOpen = false;
+    }
+  }
+
+  /* —— Fullscreen Toggle —— */
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      if (fullscreenBtn) {
+        const text = fullscreenBtn.querySelector(".btn-text");
+        if (text) text.textContent = "Exit";
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      if (fullscreenBtn) {
+        const text = fullscreenBtn.querySelector(".btn-text");
+        if (text) text.textContent = "Expand";
+      }
+    }
+  }
+
+  /* —— Event Listeners —— */
   prevBtn.addEventListener("click", () => show(index - 1));
   nextBtn.addEventListener("click", () =>
     show(index === slides.length - 1 ? 0 : index + 1)
   );
-  document.getElementById("hot-prev").addEventListener("click", () => show(index - 1));
-  document.getElementById("hot-next").addEventListener("click", () =>
-    show(index === slides.length - 1 ? 0 : index + 1)
-  );
+
+  const hotPrev = document.getElementById("hot-prev");
+  const hotNext = document.getElementById("hot-next");
+  if (hotPrev) hotPrev.addEventListener("click", () => show(index - 1));
+  if (hotNext) hotNext.addEventListener("click", () => show(index === slides.length - 1 ? 0 : index + 1));
 
   document.querySelectorAll("[data-jump]").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -248,6 +326,17 @@
     if (e.target === overview) closeOverview();
   });
 
+  if (shortcutsBtn) shortcutsBtn.addEventListener("click", () => (shortcutsOpen ? closeShortcuts() : openShortcuts()));
+  if (shortcutsClose) shortcutsClose.addEventListener("click", closeShortcuts);
+  if (shortcutsModal) {
+    shortcutsModal.addEventListener("click", (e) => {
+      if (e.target === shortcutsModal) closeShortcuts();
+    });
+  }
+
+  if (fullscreenBtn) fullscreenBtn.addEventListener("click", toggleFullscreen);
+
+  /* —— Print & PDF Preparation —— */
   async function prepareChartsForPrint() {
     document.body.classList.add("preparing-print");
     if (window.NukaazoCharts) {
@@ -263,10 +352,13 @@
     await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
   }
 
-  document.getElementById("print").addEventListener("click", async () => {
-    await prepareChartsForPrint();
-    window.print();
-  });
+  const printBtn = document.getElementById("print");
+  if (printBtn) {
+    printBtn.addEventListener("click", async () => {
+      await prepareChartsForPrint();
+      window.print();
+    });
+  }
 
   window.addEventListener("beforeprint", () => {
     document.body.classList.add("preparing-print");
@@ -277,7 +369,7 @@
     document.body.classList.remove("preparing-print");
   });
 
-  /* Headless / ?export=1 — paint every chart before PDF capture */
+  /* Headless / ?export=1 check */
   if (new URLSearchParams(location.search).has("export")) {
     document.body.classList.add("preparing-print", "is-exporting");
     const ready = async () => {
@@ -288,59 +380,85 @@
     else window.addEventListener("load", ready);
   }
 
-  /* —— Interactive phone demo —— */
+  /* —— Interactive Smartphone Concept Demo —— */
   const phoneCta = document.getElementById("phone-cta");
   const phoneStatus = document.getElementById("phone-status");
-  const phoneOrder = document.getElementById("phone-order");
   const phoneGreet = document.getElementById("phone-greet");
+  const demoPhone = document.getElementById("demo-phone");
   let phoneAccepted = false;
 
   function resetPhone() {
     phoneAccepted = false;
-    phoneCta.hidden = false;
-    phoneCta.textContent = "Accept this order";
-    phoneCta.classList.remove("is-done");
-    phoneStatus.hidden = true;
-    phoneOrder.innerHTML = "<b>New order #1042</b><span>₹540</span>";
-    phoneGreet.textContent = "Good morning, Asha.";
-    document.getElementById("demo-phone").classList.remove("is-accepted");
+    if (phoneCta) {
+      phoneCta.classList.remove("is-done");
+      const text = phoneCta.querySelector("span:first-child");
+      if (text) text.textContent = "Accept this order";
+      else phoneCta.textContent = "Accept this order";
+    }
+    if (phoneStatus) phoneStatus.hidden = true;
+    if (phoneGreet) phoneGreet.textContent = "Good morning, Asha 👋";
+    if (demoPhone) demoPhone.classList.remove("is-accepted");
   }
 
-  phoneCta.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (phoneAccepted) {
-      resetPhone();
-      return;
-    }
-    phoneAccepted = true;
-    phoneCta.textContent = "Accepted ✓";
-    phoneCta.classList.add("is-done");
-    phoneStatus.hidden = false;
-    phoneOrder.innerHTML = "<b>Order #1042</b><span>Preparing</span>";
-    phoneGreet.textContent = "On it, Asha.";
-    document.getElementById("demo-phone").classList.add("is-accepted");
-    if (hasGsap && !reduceMotion) {
-      gsap.fromTo(phoneStatus, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35 });
-    }
-  });
+  if (phoneCta) {
+    phoneCta.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (phoneAccepted) {
+        resetPhone();
+        return;
+      }
+      phoneAccepted = true;
+      phoneCta.classList.add("is-done");
+      const text = phoneCta.querySelector("span:first-child");
+      if (text) text.textContent = "Order Accepted ✓ (Tap to reset)";
+      else phoneCta.textContent = "Order Accepted ✓ (Tap to reset)";
 
-  /* —— Keyboard —— */
+      if (phoneStatus) phoneStatus.hidden = false;
+      if (phoneGreet) phoneGreet.textContent = "Order accepted! On it, Asha ✨";
+      if (demoPhone) demoPhone.classList.add("is-accepted");
+
+      if (hasGsap && !reduceMotion && phoneStatus) {
+        gsap.fromTo(phoneStatus, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3 });
+      }
+    });
+  }
+
+  /* —— Keyboard Navigation —— */
   document.addEventListener("keydown", (e) => {
     if (e.altKey || e.metaKey || e.ctrlKey) return;
     const tag = document.activeElement?.tagName;
     if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
 
-    if (e.key === "Escape" && overviewOpen) {
-      e.preventDefault();
-      closeOverview();
-      return;
+    if (e.key === "Escape") {
+      if (overviewOpen) {
+        e.preventDefault();
+        closeOverview();
+        return;
+      }
+      if (shortcutsOpen) {
+        e.preventDefault();
+        closeShortcuts();
+        return;
+      }
     }
 
-    if (overviewOpen) return;
+    if (overviewOpen || shortcutsOpen) return;
 
     if (e.key === "o" || e.key === "O") {
       e.preventDefault();
       openOverview();
+      return;
+    }
+
+    if (e.key === "f" || e.key === "F") {
+      e.preventDefault();
+      toggleFullscreen();
+      return;
+    }
+
+    if (e.key === "?" || e.key === "/") {
+      e.preventDefault();
+      openShortcuts();
       return;
     }
 
@@ -360,7 +478,7 @@
     }
   });
 
-  /* —— Swipe —— */
+  /* —— Touch Swipe Navigation —— */
   let sx = 0;
   let sy = 0;
   stage.addEventListener(
@@ -376,19 +494,20 @@
     (e) => {
       const dx = e.changedTouches[0].clientX - sx;
       const dy = e.changedTouches[0].clientY - sy;
-      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
         show(index + (dx < 0 ? 1 : -1));
       }
     },
     { passive: true }
   );
 
-  /* —— Brand home —— */
+  /* —— Brand Logo Home Link —— */
   document.querySelector(".brand")?.addEventListener("click", (e) => {
     e.preventDefault();
     show(0);
   });
 
+  /* —— Initial Slide Location Hash —— */
   const match = location.hash.match(/^#slide-(\d+)$/);
   const start = match ? Number(match[1]) - 1 : 0;
   show(start, { instant: true });

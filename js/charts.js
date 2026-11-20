@@ -1,9 +1,9 @@
 (() => {
   const ORANGE = "#e85c1c";
   const TEAL = "#006363";
-  const TEAL_SOFT = "#2a8a86";
-  const MUTED = "#9aa4a1";
-  const INK = "#24302e";
+  const TEAL_SOFT = "#1a8f8a";
+  const MUTED = "#899693";
+  const INK = "#182220";
 
   const charts = new Map();
   const built = new Set();
@@ -12,10 +12,10 @@
     responsive: true,
     maintainAspectRatio: false,
     layout: {
-      padding: { top: 6, right: 8, bottom: 2, left: 2 },
+      padding: { top: 10, right: 10, bottom: 4, left: 4 },
     },
     animation: {
-      duration: 700,
+      duration: 650,
       easing: "easeOutQuart",
     },
     plugins: {
@@ -23,28 +23,37 @@
         labels: {
           color: INK,
           boxWidth: 12,
-          font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11 },
+          padding: 14,
+          font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11, weight: "600" },
         },
       },
       tooltip: {
-        backgroundColor: "#fff",
+        backgroundColor: "#ffffff",
         titleColor: INK,
-        bodyColor: INK,
-        borderColor: "#e2eae7",
+        bodyColor: "#32403d",
+        borderColor: "rgba(0, 99, 99, 0.12)",
         borderWidth: 1,
         padding: 10,
+        boxPadding: 4,
+        cornerRadius: 8,
+        usePointStyle: true,
+        titleFont: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 12, weight: "700" },
+        bodyFont: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11 },
       },
     },
   };
 
   function scaleOpts() {
     return {
-      grid: { color: "rgba(36, 48, 46, 0.06)" },
-      ticks: {
-        color: "#66706d",
-        font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11 },
+      grid: {
+        color: "rgba(0, 99, 99, 0.06)",
+        tickColor: "transparent",
       },
-      border: { color: "rgba(36, 48, 46, 0.08)" },
+      ticks: {
+        color: "#5e6b68",
+        font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11, weight: "600" },
+      },
+      border: { color: "rgba(0, 99, 99, 0.1)" },
     };
   }
 
@@ -68,7 +77,7 @@
               label: "Transaction value (₹k / day avg)",
               data: [12, 15, 18, 21, 23, 25],
               borderColor: ORANGE,
-              backgroundColor: "rgba(232, 92, 28, 0.14)",
+              backgroundColor: "rgba(232, 92, 28, 0.12)",
               borderWidth: 3,
               fill: true,
               tension: 0.35,
@@ -76,7 +85,7 @@
               pointHoverRadius: 7,
               pointBackgroundColor: "#fff",
               pointBorderColor: ORANGE,
-              pointBorderWidth: 2,
+              pointBorderWidth: 2.5,
             },
           ],
         },
@@ -102,15 +111,15 @@
       make("chart-economics", {
         type: "bar",
         data: {
-          labels: ["Commission", "Payment cost", "Other variable", "Contribution"],
+          labels: ["4% Commission", "Payment Gateway", "Cloud & SMS", "Net Contribution"],
           datasets: [
             {
-              label: "₹ on a ₹500 order",
+              label: "₹ per ₹500 order",
               data: [20, 10, 2, 8],
-              backgroundColor: [ORANGE, MUTED, "#c5cecb", TEAL],
-              borderRadius: 10,
-              maxBarThickness: 72,
-              categoryPercentage: 0.7,
+              backgroundColor: [ORANGE, "#94a3b8", "#cbd5e1", TEAL],
+              borderRadius: 8,
+              maxBarThickness: 64,
+              categoryPercentage: 0.65,
               barPercentage: 0.85,
             },
           ],
@@ -120,6 +129,14 @@
           plugins: {
             ...baseOptions.plugins,
             legend: { display: false },
+            tooltip: {
+              ...baseOptions.plugins.tooltip,
+              callbacks: {
+                label(ctx) {
+                  return `₹${ctx.raw} (${((ctx.raw / 20) * 100).toFixed(0)}% of commission)`;
+                },
+              },
+            },
           },
           scales: {
             x: scaleOpts(),
@@ -127,6 +144,10 @@
               ...scaleOpts(),
               beginAtZero: true,
               suggestedMax: 24,
+              ticks: {
+                ...scaleOpts().ticks,
+                callback: (v) => `₹${v}`,
+              },
             },
           },
         },
@@ -137,14 +158,14 @@
       make("chart-growth", {
         type: "bar",
         data: {
-          labels: ["Fulfilment", "30-day repeat", "Local contribution"],
+          labels: ["Fulfilment Rate", "30-Day Buyer Repeat", "Local Cluster Contribution"],
           datasets: [
             {
-              label: "Gate target",
+              label: "Quality Gate Target",
               data: [95, 30, 100],
               backgroundColor: [TEAL, ORANGE, TEAL_SOFT],
-              borderRadius: 8,
-              maxBarThickness: 42,
+              borderRadius: 6,
+              maxBarThickness: 34,
             },
           ],
         },
@@ -158,7 +179,7 @@
               ...baseOptions.plugins.tooltip,
               callbacks: {
                 label(ctx) {
-                  const labels = ["≥95% fulfilment", "≥30% buyer repeat", "Positive contribution"];
+                  const labels = ["≥95% order fulfilment required", "≥30% 30-day buyer retention required", "3 consecutive months positive local margin"];
                   return labels[ctx.dataIndex] || ctx.formattedValue;
                 },
               },
@@ -184,28 +205,32 @@
       make("chart-roadmap", {
         type: "bar",
         data: {
-          labels: ["Now", "M6", "M12", "M18"],
+          labels: ["Kickoff (Now)", "Month 6", "Month 12", "Month 18"],
           datasets: [
             {
               type: "bar",
-              label: "Active shops",
+              label: "Active Transacting Shops",
               data: [10, 100, 300, 700],
-              backgroundColor: "rgba(0, 99, 99, 0.22)",
+              backgroundColor: "rgba(0, 99, 99, 0.2)",
               borderColor: TEAL,
-              borderWidth: 1,
+              borderWidth: 1.5,
               borderRadius: 8,
-              maxBarThickness: 46,
+              maxBarThickness: 48,
               order: 2,
             },
             {
               type: "line",
-              label: "Target path",
+              label: "Scaling Trajectory",
               data: [10, 100, 300, 700],
               borderColor: ORANGE,
               backgroundColor: ORANGE,
-              tension: 0.25,
-              pointRadius: 5,
-              pointBackgroundColor: ORANGE,
+              borderWidth: 3,
+              tension: 0.28,
+              pointRadius: 6,
+              pointHoverRadius: 8,
+              pointBackgroundColor: "#ffffff",
+              pointBorderColor: ORANGE,
+              pointBorderWidth: 3,
               order: 1,
             },
           ],
@@ -217,6 +242,11 @@
             y: {
               ...scaleOpts(),
               beginAtZero: true,
+              suggestedMax: 800,
+              ticks: {
+                ...scaleOpts().ticks,
+                callback: (v) => `${v} shops`,
+              },
             },
           },
         },
@@ -227,20 +257,20 @@
       make("chart-ask", {
         type: "doughnut",
         data: {
-          labels: ["Ops ₹198L", "Setup + Proxy ₹38L", "Reserve ₹33.6L"],
+          labels: ["Operating Plan ₹198L", "Setup & Proxy Pilot ₹38L", "Reserve Buffer ₹33.6L"],
           datasets: [
             {
               data: [198, 38, 33.6],
               backgroundColor: [TEAL, ORANGE, "#f0b090"],
-              borderColor: "#fff",
+              borderColor: "#ffffff",
               borderWidth: 3,
-              hoverOffset: 4,
+              hoverOffset: 6,
             },
           ],
         },
         options: {
           ...baseOptions,
-          cutout: "62%",
+          cutout: "68%",
           layout: { padding: 4 },
           plugins: {
             ...baseOptions.plugins,
@@ -249,8 +279,18 @@
               labels: {
                 color: INK,
                 boxWidth: 10,
-                padding: 14,
-                font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11 },
+                padding: 12,
+                font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11, weight: "600" },
+              },
+            },
+            tooltip: {
+              ...baseOptions.plugins.tooltip,
+              callbacks: {
+                label(ctx) {
+                  const total = 198 + 38 + 33.6;
+                  const pct = ((ctx.raw / total) * 100).toFixed(1);
+                  return ` ${ctx.label}: ${pct}%`;
+                },
               },
             },
           },
@@ -262,21 +302,21 @@
       make("chart-model", {
         type: "bar",
         data: {
-          labels: ["Commission", "Contribution", "Fixed spend"],
+          labels: ["Commission Revenue", "Net Contribution", "Fixed Spend"],
           datasets: [
             {
               label: "Year 1 (₹L)",
               data: [28.44, 11.38, 108],
               backgroundColor: TEAL_SOFT,
-              borderRadius: 8,
-              maxBarThickness: 36,
+              borderRadius: 6,
+              maxBarThickness: 34,
             },
             {
               label: "Year 2 (₹L)",
               data: [301.44, 120.58, 213],
               backgroundColor: ORANGE,
-              borderRadius: 8,
-              maxBarThickness: 36,
+              borderRadius: 6,
+              maxBarThickness: 34,
             },
           ],
         },
@@ -287,6 +327,10 @@
             y: {
               ...scaleOpts(),
               beginAtZero: true,
+              ticks: {
+                ...scaleOpts().ticks,
+                callback: (v) => `₹${v}L`,
+              },
             },
           },
         },
