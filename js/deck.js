@@ -127,33 +127,6 @@
     }
   }
 
-  function playReveals(slide, { animate = true } = {}) {
-    const items = slide.querySelectorAll(".reveal");
-    if (!items.length) return;
-
-    if (!hasGsap || reduceMotion || !animate) {
-      if (hasGsap) gsap.set(items, { clearProps: "opacity,transform" });
-      items.forEach((el) => {
-        el.style.opacity = "1";
-        el.style.transform = "none";
-      });
-      return;
-    }
-
-    gsap.fromTo(
-      items,
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.45,
-        stagger: 0.05,
-        ease: "power3.out",
-        overwrite: "auto",
-      }
-    );
-  }
-
   function animateCounters(slide) {
     const nodes = slide.querySelectorAll("[data-count]");
     nodes.forEach((el) => {
@@ -170,9 +143,8 @@
       const state = { val: 0 };
       gsap.to(state, {
         val: end,
-        duration: 0.9,
+        duration: 0.7,
         ease: "power2.out",
-        delay: 0.1,
         onUpdate: () => {
           el.textContent = `${prefix}${Math.round(state.val)}${suffix}`;
         },
@@ -193,25 +165,23 @@
 
     setChrome(target);
 
-    const afterShow = () => {
-      playReveals(incoming, { animate: !instant });
-      animateCounters(incoming);
-      if (window.NukaazoCharts) {
-        requestAnimationFrame(() => {
-          window.NukaazoCharts.ensureIn(incoming);
-          requestAnimationFrame(() => window.NukaazoCharts.ensureIn(incoming));
-        });
-      }
-      window.scrollTo(0, 0);
-    };
-
+    // Instant/no-animation path
     if (instant || reduceMotion || !hasGsap) {
       slides.forEach((s, j) => {
-        s.classList.toggle("is-active", j === target);
-        s.setAttribute("aria-hidden", String(j !== target));
+        const isActive = j === target;
+        s.classList.toggle("is-active", isActive);
+        s.setAttribute("aria-hidden", String(!isActive));
+        s.style.visibility = isActive ? "visible" : "hidden";
+        s.style.opacity = isActive ? "1" : "0";
+        s.style.transform = "none";
       });
       index = target;
-      afterShow();
+      animating = false;
+      animateCounters(incoming);
+      if (window.NukaazoCharts) {
+        window.NukaazoCharts.ensureIn(incoming);
+      }
+      window.scrollTo(0, 0);
       return;
     }
 
@@ -222,32 +192,55 @@
       s.setAttribute("aria-hidden", String(j !== target));
     });
 
-    incoming.classList.add("is-active");
+    // Kill any running animations on slides to prevent collision/stutter
+    gsap.killTweensOf([outgoing, incoming]);
 
+    // Pre-initialize incoming at opacity 0 BEFORE it appears on screen (fixes FOUC/flash)
+    gsap.set(incoming, {
+      opacity: 0,
+      x: goingForward ? 24 : -24,
+      visibility: "visible",
+      zIndex: 3,
+    });
+    gsap.set(outgoing, {
+      zIndex: 2,
+    });
+
+    incoming.classList.add("is-animating-in");
+    outgoing.classList.add("is-animating-out");
+
+    // Single cohesive timeline: outgoing smoothly slides/fades out, incoming glides in
     const tl = gsap.timeline({
-      defaults: { ease: "power2.inOut" },
+      defaults: { ease: "power2.out" },
       onComplete: () => {
-        outgoing.classList.remove("is-active");
-        gsap.set(outgoing, { clearProps: "opacity,transform" });
-        gsap.set(incoming, { clearProps: "transform" });
+        outgoing.classList.remove("is-active", "is-animating-out");
+        incoming.classList.remove("is-animating-in");
+        incoming.classList.add("is-active");
+
+        gsap.set(outgoing, {
+          clearProps: "all",
+          visibility: "hidden",
+          opacity: 0,
+        });
+        gsap.set(incoming, {
+          clearProps: "transform",
+          opacity: 1,
+          visibility: "visible",
+        });
+
         index = target;
         animating = false;
-        afterShow();
+
+        animateCounters(incoming);
+        if (window.NukaazoCharts) {
+          window.NukaazoCharts.ensureIn(incoming);
+        }
+        window.scrollTo(0, 0);
       },
     });
 
-    gsap.set(incoming, {
-      opacity: 0,
-      x: goingForward ? 32 : -32,
-      zIndex: 3,
-    });
-    gsap.set(outgoing, { zIndex: 2 });
-
-    tl.to(outgoing, { opacity: 0, x: goingForward ? -24 : 24, duration: 0.3 }, 0).to(
-      incoming,
-      { opacity: 1, x: 0, duration: 0.35 },
-      0.04
-    );
+    tl.to(outgoing, { opacity: 0, x: goingForward ? -18 : 18, duration: 0.24 }, 0)
+      .to(incoming, { opacity: 1, x: 0, duration: 0.28 }, 0.03);
   }
 
   /* —— Modals: Overview & Shortcuts —— */
@@ -418,7 +411,7 @@
       if (demoPhone) demoPhone.classList.add("is-accepted");
 
       if (hasGsap && !reduceMotion && phoneStatus) {
-        gsap.fromTo(phoneStatus, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3 });
+        gsap.fromTo(phoneStatus, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" });
       }
     });
   }

@@ -12,10 +12,10 @@
     responsive: true,
     maintainAspectRatio: false,
     layout: {
-      padding: { top: 10, right: 10, bottom: 4, left: 4 },
+      padding: { top: 8, right: 10, bottom: 4, left: 4 },
     },
     animation: {
-      duration: 650,
+      duration: 600,
       easing: "easeOutQuart",
     },
     plugins: {
@@ -23,7 +23,7 @@
         labels: {
           color: INK,
           boxWidth: 12,
-          padding: 14,
+          padding: 12,
           font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11, weight: "600" },
         },
       },
@@ -31,7 +31,7 @@
         backgroundColor: "#ffffff",
         titleColor: INK,
         bodyColor: "#32403d",
-        borderColor: "rgba(0, 99, 99, 0.12)",
+        borderColor: "rgba(0, 99, 99, 0.15)",
         borderWidth: 1,
         padding: 10,
         boxPadding: 4,
@@ -111,14 +111,14 @@
       make("chart-economics", {
         type: "bar",
         data: {
-          labels: ["4% Commission", "Payment Gateway", "Cloud & SMS", "Net Contribution"],
+          labels: ["4% Commission (₹20)", "Payment Cost (₹10)", "Cloud & SMS (₹2)", "Contribution (₹8)"],
           datasets: [
             {
               label: "₹ per ₹500 order",
               data: [20, 10, 2, 8],
               backgroundColor: [ORANGE, "#94a3b8", "#cbd5e1", TEAL],
               borderRadius: 8,
-              maxBarThickness: 64,
+              maxBarThickness: 62,
               categoryPercentage: 0.65,
               barPercentage: 0.85,
             },
@@ -139,7 +139,14 @@
             },
           },
           scales: {
-            x: scaleOpts(),
+            x: {
+              ...scaleOpts(),
+              ticks: {
+                ...scaleOpts().ticks,
+                maxRotation: 0,
+                autoSkip: false,
+              },
+            },
             y: {
               ...scaleOpts(),
               beginAtZero: true,
@@ -158,14 +165,14 @@
       make("chart-growth", {
         type: "bar",
         data: {
-          labels: ["Fulfilment Rate", "30-Day Buyer Repeat", "Local Cluster Contribution"],
+          labels: ["Fulfilment (≥95%)", "30-Day Repeat (≥30%)", "Local Margin (Positive)"],
           datasets: [
             {
               label: "Quality Gate Target",
               data: [95, 30, 100],
               backgroundColor: [TEAL, ORANGE, TEAL_SOFT],
               borderRadius: 6,
-              maxBarThickness: 34,
+              maxBarThickness: 32,
             },
           ],
         },
@@ -179,7 +186,11 @@
               ...baseOptions.plugins.tooltip,
               callbacks: {
                 label(ctx) {
-                  const labels = ["≥95% order fulfilment required", "≥30% 30-day buyer retention required", "3 consecutive months positive local margin"];
+                  const labels = [
+                    "Threshold: ≥95% order fulfilment required",
+                    "Threshold: ≥30% 30-day buyer retention required",
+                    "Threshold: 3 consecutive months positive local contribution"
+                  ];
                   return labels[ctx.dataIndex] || ctx.formattedValue;
                 },
               },
@@ -195,7 +206,13 @@
                 callback: (v) => `${v}%`,
               },
             },
-            y: scaleOpts(),
+            y: {
+              ...scaleOpts(),
+              ticks: {
+                ...scaleOpts().ticks,
+                font: { family: "'Plus Jakarta Sans', system-ui, sans-serif", size: 11, weight: "700" },
+              },
+            },
           },
         },
       });
@@ -205,17 +222,17 @@
       make("chart-roadmap", {
         type: "bar",
         data: {
-          labels: ["Kickoff (Now)", "Month 6", "Month 12", "Month 18"],
+          labels: ["Launch (Now)", "Month 6", "Month 12", "Month 18"],
           datasets: [
             {
               type: "bar",
               label: "Active Transacting Shops",
               data: [10, 100, 300, 700],
-              backgroundColor: "rgba(0, 99, 99, 0.2)",
+              backgroundColor: "rgba(0, 99, 99, 0.18)",
               borderColor: TEAL,
               borderWidth: 1.5,
               borderRadius: 8,
-              maxBarThickness: 48,
+              maxBarThickness: 46,
               order: 2,
             },
             {
@@ -271,7 +288,7 @@
         options: {
           ...baseOptions,
           cutout: "68%",
-          layout: { padding: 4 },
+          layout: { padding: { top: 4, bottom: 4, left: 4, right: 4 } },
           plugins: {
             ...baseOptions.plugins,
             legend: {
@@ -347,8 +364,9 @@
         builders[id]();
       } else {
         try {
-          charts.get(id).resize();
-          charts.get(id).update("none");
+          const chart = charts.get(id);
+          chart.resize();
+          chart.update("none");
         } catch (_) {
           builders[id]();
         }

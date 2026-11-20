@@ -222,7 +222,7 @@ img {
   color: var(--ink-soft);
   font-size: 12px;
   font-weight: 600;
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .chrome-btn:hover {
@@ -256,7 +256,7 @@ img {
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.2s var(--ease);
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .site-link:hover {
@@ -344,12 +344,27 @@ img {
   pointer-events: none;
   overflow: hidden;
   box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .slide.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  z-index: 2;
+}
+
+.slide.is-animating-in {
+  visibility: visible;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.slide.is-animating-out {
+  visibility: visible;
+  pointer-events: none;
   z-index: 2;
 }
 
@@ -378,6 +393,8 @@ img {
   filter: blur(80px);
   opacity: 0.65;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .glow-top-right {
@@ -442,14 +459,19 @@ img {
   height: 7px;
   border-radius: 50%;
   background: var(--orange);
-  box-shadow: 0 0 0 0 rgba(232, 92, 28, 0.7);
-  animation: pulse-ring 2s infinite;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(232, 92, 28, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(232, 92, 28, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(232, 92, 28, 0); }
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--orange);
+  animation: pulse-scale 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
 }
 
 .kicker {
@@ -567,7 +589,7 @@ img {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .hero-kpi-card:hover {
@@ -618,7 +640,7 @@ img {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .story-map button:hover {
@@ -710,7 +732,7 @@ img {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: all 0.25s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease), background-color 0.2s var(--ease);
   position: relative;
   overflow: hidden;
 }
@@ -808,7 +830,7 @@ img {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: all 0.25s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease), background-color 0.2s var(--ease);
   position: relative;
 }
 
@@ -971,7 +993,7 @@ img {
   flex-direction: column;
   padding: 0 16px 14px;
   box-sizing: border-box;
-  transition: all 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 
 .phone-notch {
@@ -1090,7 +1112,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: all 0.3s var(--ease);
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
 .phone.is-accepted .phone-order-card {
@@ -1115,12 +1137,27 @@ img {
   height: 7px;
   border-radius: 50%;
   background: var(--orange);
-  animation: pulse-ring 1.8s infinite;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--orange);
+  animation: pulse-scale 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
 }
 
 .phone.is-accepted .pulse-ring {
   background: #10b981;
-  animation: none;
+}
+
+.phone.is-accepted .pulse-ring::after {
+  display: none;
 }
 
 .order-tag {
@@ -1186,7 +1223,7 @@ img {
   padding: 10px 14px;
   margin-top: 4px;
   box-shadow: 0 4px 12px rgba(232, 92, 28, 0.3);
-  transition: all 0.2s var(--ease);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
 }
 
 .phone-cta:hover {
@@ -1288,7 +1325,7 @@ img {
   border-radius: var(--radius);
   padding: 14px 18px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .metric-elevated:hover {
@@ -1397,6 +1434,7 @@ img {
   width: 100%;
   height: 100%;
   display: block;
+  shape-rendering: geometricPrecision;
 }
 
 /* —— Slide 6 Economics & Flow Row —— */
@@ -1418,7 +1456,7 @@ img {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .flow-step:hover {
@@ -1558,20 +1596,21 @@ img {
 .chart-frame {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 195px;
 }
 
 .chart-frame-wide {
-  height: 170px;
+  height: 165px;
 }
 
 .chart-frame-lg {
-  height: 230px;
+  height: 200px;
 }
 
 .chart-frame-donut {
-  height: 240px;
-  max-width: 270px;
+  height: 235px;
+  max-width: 280px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -1581,7 +1620,7 @@ img {
 
 .donut-center-badge {
   position: absolute;
-  top: 42%;
+  top: 41%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -1589,6 +1628,7 @@ img {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  text-align: center;
 }
 
 .donut-center-val {
@@ -1630,7 +1670,7 @@ img {
   border-radius: var(--radius);
   padding: 14px 16px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .growth-card:hover {
@@ -1669,7 +1709,7 @@ img {
   border-radius: var(--radius);
   padding: 16px 18px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .stage-card:hover {
@@ -1769,7 +1809,7 @@ img {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .ask-item:hover {
@@ -1840,7 +1880,7 @@ img {
   border-radius: var(--radius);
   padding: 20px 18px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .proof-card:hover {
@@ -1914,7 +1954,7 @@ img {
   border-radius: 10px;
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(232, 92, 28, 0.3);
-  transition: all 0.2s var(--ease);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .btn-primary-pitch:hover {
@@ -1933,7 +1973,7 @@ img {
   font-weight: 700;
   padding: 10px 16px;
   border-radius: 10px;
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
 .btn-secondary-pitch:hover {
@@ -1960,6 +2000,7 @@ img {
   border-radius: var(--radius);
   padding: 22px 20px;
   box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .duo-tag {
@@ -1987,7 +2028,7 @@ img {
 .mini-chain {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
   margin: 16px 0 10px;
   font-size: 12px;
@@ -1995,21 +2036,45 @@ img {
 }
 
 .chain-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   background: var(--surface);
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
   border: 1px solid var(--line);
   color: var(--ink-soft);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.chain-icon {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .chain-node.focus {
   background: var(--teal-wash);
   color: var(--teal);
   border-color: var(--teal-border);
+  box-shadow: 0 2px 6px rgba(11, 107, 99, 0.1);
+}
+
+.chain-pill {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--teal);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 4px;
 }
 
 .chain-arrow {
   color: var(--orange);
+  font-weight: 800;
+  font-size: 13px;
 }
 
 .card-caption {
@@ -2127,6 +2192,7 @@ img {
   border-radius: var(--radius);
   padding: 16px 18px;
   box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .risk-head {
@@ -2174,6 +2240,7 @@ img {
   border-radius: var(--radius);
   padding: 16px 18px;
   box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .evidence-tag {
@@ -2250,7 +2317,7 @@ img {
   border-radius: 6px;
   background: var(--surface);
   border: 1px solid var(--line);
-  transition: all 0.2s;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
 .links-row a:hover {
@@ -2330,7 +2397,7 @@ img {
   border-radius: 999px;
   background: var(--line);
   cursor: pointer;
-  transition: width 0.25s var(--ease), background 0.2s, transform 0.15s;
+  transition: width 0.25s var(--ease), background-color 0.2s, transform 0.15s;
 }
 
 .dot:hover {
@@ -2364,7 +2431,7 @@ img {
   color: var(--ink);
   font-size: 12.5px;
   font-weight: 700;
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .nav-btn:hover:not(:disabled) {
@@ -2494,7 +2561,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
 .overview-close:hover {
@@ -2520,7 +2587,7 @@ img {
   border-radius: var(--radius);
   padding: 14px 14px 16px;
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .overview-card:hover {
@@ -2620,6 +2687,7 @@ img {
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
 .shortcuts-close:hover {
@@ -2758,12 +2826,57 @@ img {
   }
 
   .flow-arrow-wrap {
+    transform: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .flow-arrow-wrap .flow-arrow {
     transform: rotate(90deg);
-    padding: 4px 0;
+    display: inline-block;
   }
 
   .ask {
     font-size: clamp(48px, 12vw, 68px);
+  }
+}
+
+/* Compact laptop height screen support */
+@media screen and (max-height: 760px) and (min-width: 769px) {
+  .phone {
+    transform: scale(0.88);
+    transform-origin: center top;
+    margin: 4px auto 0;
+  }
+
+  .chart-frame {
+    height: 170px !important;
+  }
+
+  .chart-frame-wide {
+    height: 150px !important;
+  }
+
+  .chart-frame-lg {
+    height: 180px !important;
+  }
+
+  .display {
+    font-size: clamp(34px, 4.4vw, 52px);
+    margin: 0 0 10px;
+  }
+
+  .lead {
+    font-size: 0.95rem;
+    margin: 0 0 14px;
+  }
+
+  .slidefoot {
+    margin-top: 14px;
   }
 }
 
